@@ -138,19 +138,28 @@ var deleteFolderRecursive = function(path) {
     fs.readdirSync(path).forEach(function(file, index) {
       var curPath = path + "/" + file;
       if (fs.lstatSync(curPath).isDirectory()) { // recurse
-        deleteFolderRecursive(curPath);
+        // Check if the current directory is not 'static' before recursion
+        if (file !== 'static') {
+          deleteFolderRecursive(curPath);
+        }
       } else { // delete file
         console.log("Deleting " + curPath);
         fs.unlinkSync(curPath);
       }
     });
-    console.log("Deleting " + path);
-    fs.rmdirSync(path);
+    // Do not delete the directory if it is 'static'
+    if (path.split('/').pop() !== 'static') {
+      console.log("Deleting " + path);
+      fs.rmdirSync(path);
+    }
   }
 };
+
 if (!fs.existsSync('./serve')) fs.mkdirSync('./serve');
+
+// Only delete directories or files that are not 'static' or 'retrieved'
 fs.readdirSync('./serve/').forEach(function(n, index) {
-  if ((n !== 'static' && n !== 'retrieved') || (n === 'static' && args.bundle) || (n === 'retrieved' && args.retrieve)) {
+  if ((n !== 'static' && n !== 'retrieved') || (n === 'retrieved' && args.retrieve)) {
     if (fs.lstatSync('./serve/' + n).isDirectory()) {
       deleteFolderRecursive('./serve/' + n);
     } else {
@@ -158,6 +167,8 @@ fs.readdirSync('./serve/').forEach(function(n, index) {
     }
   }
 });
+
+// Ensure 'static' and 'retrieved' directories exist
 if (!fs.existsSync('./serve/static')) fs.mkdirSync('./serve/static');
 if (!fs.existsSync('./serve/retrieved')) fs.mkdirSync('./serve/retrieved');
 
@@ -296,8 +307,9 @@ if (args.bundle && typeof bundle === 'object') {
     }
   }
   if (js.length) {
-    var uglify = require("uglify-js");
-    uglyjs = uglify.minify(js);
+    const uglify = require("uglify-js");
+    const path = require('path');
+    uglyjs = uglify.minify(js.map(_path => path.normalize(_path)));
     uglyjs.error ? console.log(uglyjs.error) : (
         jshash = 'bundled_' + crypto.createHash('md5').update(uglyjs.code).digest("hex"),
         fs.writeFileSync('./serve/static/' + jshash + '.min.js', uglyjs.code)
