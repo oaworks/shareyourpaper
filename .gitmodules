@@ -1,0 +1,3 @@
+[submodule "website/static/external"]
+	path = website/static/external
+	url = https://github.com/oaworks/embed
