@@ -1,7 +1,4 @@
 ### Project specific
-# A symlink to the embed repo on the local machine
-embed
-
 serve/
 *local.json
 .DS_Store

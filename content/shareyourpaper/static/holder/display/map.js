@@ -1,2 +1,0 @@
-
-// a google map
