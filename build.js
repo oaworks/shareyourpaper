@@ -16,16 +16,11 @@ mkdirp.sync(OUT);
 // helpers
 const ensureDir = f => mkdirp.sync(path.dirname(f));
 const injectGlobals = html => {
-  const tag = `<script>var site=${JSON.stringify(settings.site_url)};var api=${JSON.stringify(settings.api)};</script>`;
-  // Put the config as the FIRST thing in <head>
-  if (/<head[^>]*>/i.test(html)) {
-    return html.replace(/<head[^>]*>/i, m => `${m}\n${tag}`);
-  }
-  // If the doc oddly has no <head>, create one right after <html>
-  if (/<html[^>]*>/i.test(html)) {
-    return html.replace(/<html[^>]*>/i, m => `${m}\n<head>${tag}</head>`);
-  }
-  // Fallback: prepend
+  const cfg = `<script>var site=${JSON.stringify(settings.site_url)};var api=${JSON.stringify(settings.api)};</script>`;
+  const jq  = `<script src="/static/jquery-1.10.2.min.js"></script>`;
+  const tag = `${cfg}\n${jq}`;
+  if (/<head[^>]*>/i.test(html)) return html.replace(/<head[^>]*>/i, m => `${m}\n${tag}`);
+  if (/<html[^>]*>/i.test(html)) return html.replace(/<html[^>]*>/i, m => `${m}\n<head>${tag}</head>`);
   return `${tag}\n${html}`;
 };
 
