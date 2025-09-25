@@ -24,7 +24,7 @@ window.strim = function(s, w) {
 
 var _config = function() {
   jQuery(document).ready(function(){
-    var api = _oab_opts.api ? _oab_opts.api : 'https://api.openaccessbutton.org';
+    var api = _oab_opts.api ? _oab_opts.api : 'https://bg.api.oa.works';
     if (_oab_opts.uid) {
       $.ajax({
         type:'GET',
