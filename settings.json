@@ -1,5 +1,5 @@
 {
   "site_url": "https://shareyourpaper.org",
-  "api": "https://api.openaccessbutton.org",
+  "api": "https://bg.api.oa.works/find",
   "bundle": { "js": [], "css": [] }
 }

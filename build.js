@@ -16,13 +16,36 @@ mkdirp.sync(OUT);
 // helpers
 const ensureDir = f => mkdirp.sync(path.dirname(f));
 const injectGlobals = (html) => {
-  const tags = [
-    '<script src="/static/jquery-1.10.2.min.js"></script>',
+  const hasBootstrap = /\/static\/bootstrap\.min\.css/i.test(html);
+  const hasJQ       = /jquery-1\.10\.2\.min\.js/i.test(html);
+  const hasNoddy    = /\/static\/noddy\.js/i.test(html) || /window\.noddy/.test(html);
+  const hasInit     = /legacy-head-init\.js/i.test(html);
+
+  const pieces = [];
+
+  if (!hasBootstrap) {
+    pieces.push('<link rel="stylesheet" href="/static/bootstrap.min.css">');
+  }
+
+  pieces.push(
+    `<script>var site=${JSON.stringify(settings.site_url)};var api=${JSON.stringify(settings.api)};</script>`
+  );
+
+  if (!hasJQ) {
+    pieces.push('<script src="/static/jquery-1.10.2.min.js"></script>');
+  }
+
+  pieces.push(
     fs.existsSync('static/noddy.js')
       ? '<script src="/static/noddy.js"></script>'
-      : '<script>window.noddy=window.noddy||{};if(!noddy.loggedin)noddy.loggedin=function(){return false};</script>',
-    '<script src="/static/legacy-head-init.js"></script>'
-  ].join('\n');
+      : '<script>window.noddy=window.noddy||{};noddy.loggedin=noddy.loggedin||function(){return false};</script>'
+  );
+
+  if (!hasInit) {
+    pieces.push('<script src="/static/legacy-head-init.js" defer></script>');
+  }
+
+  const tags = pieces.join('\n');
 
   // insert as the FIRST thing in <head>
   if (/<head[^>]*>/i.test(html)) return html.replace(/<head[^>]*>/i, m => `${m}\n${tags}`);
