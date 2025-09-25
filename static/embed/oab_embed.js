@@ -343,7 +343,7 @@ _oab = function(opts) {
       this.uid = 'anonymous';
     }
     if (this.api == null) {
-      this.api = window.location.host.indexOf('dev.openaccessbutton.org') !== -1 ? 'https://dev.api.cottagelabs.com/service/oab' : 'https://api.openaccessbutton.org';
+      this.api = window.location.host.indexOf('dev.openaccessbutton.org') !== -1 ? 'https://dev.api.cottagelabs.com/service/oab' : 'https://bg.api.oa.works';
     }
     if (this.plugin == null) {
       this.plugin = 'instantill'; // has to be defined at startup, as either instantill or shareyourpaper

@@ -24,7 +24,7 @@ window.strim = function(s, w) {
 
 var _config = function() {
   jQuery(document).ready(function(){
-    var api = _oab_opts.api ? _oab_opts.api : 'https://api.openaccessbutton.org';
+    var api = _oab_opts.api ? _oab_opts.api : 'https://bg.api.oa.works';
     if (_oab_opts.uid) {
       $.ajax({
         type:'GET',
@@ -49,7 +49,7 @@ var _run = function() {
   if (_oab_opts.bootstrap === undefined) _oab_opts.bootstrap = 'btn btn-primary btn-iu';
   if (_oab_opts.placeholder === undefined) _oab_opts.placeholder = 'e.g. 10.1016/j.cplett.2012.10.045';
   if (_oab_opts.data === undefined) _oab_opts.data = false;
-  var api = _oab_opts.api ? _oab_opts.api : 'https://api.openaccessbutton.org';
+  var api = _oab_opts.api ? _oab_opts.api : 'https://bg.api.oa.works';
   var site = _oab_opts.site ? _oab_opts.site : 'https://openaccessbutton.org';
   if (window.location.host.indexOf('dev.openaccessbutton.org') !== -1) {
     if (!_oab_opts.api) api = 'https://dev.api.cottagelabs.com/service/oab';
