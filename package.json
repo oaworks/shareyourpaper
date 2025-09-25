@@ -3,13 +3,17 @@
   "version": "1.0.0",
   "scripts": {
     "build": "node build.js && node copy-static.js",
-    "start": "http-server serve -p 8080"
+    "start": "npm run build && http-server serve -p 8080",
+    "watch": "chokidar 'content/**/*' 'static/**/*' build.js settings.json -c 'npm run build'",
+    "dev": "concurrently \"npm run watch\" \"http-server serve -p 8080\""
   },
   "devDependencies": {
+    "chokidar-cli": "^3.0.0",
     "coffeescript": "^2.7.0",
+    "concurrently": "^9.2.1",
     "glob": "^10.3.10",
+    "http-server": "^14.1.1",
     "mkdirp": "^3.0.1",
-    "rimraf": "^5.0.0",
-    "http-server": "^14.1.1"
+    "rimraf": "^5.0.0"
   }
 }
