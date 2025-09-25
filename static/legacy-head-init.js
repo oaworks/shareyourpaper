@@ -1,7 +1,7 @@
 // ----- Legacy head init -----
 
 // API base used by SYP
-var api = 'https://api.openaccessbutton.org';
+var api = 'https://bg.api.oa.works/find';
 
 window.noddy = window.noddy || {};
 if (typeof noddy.loggedin !== 'function') noddy.loggedin = function(){ return false; };
