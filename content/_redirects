@@ -1,0 +1,7 @@
+# Let assets & infra pass through first
+/content/*        /static/:splat        200
+/favicon.ico     /favicon.ico          200
+/robots.txt      /robots.txt           200
+
+# DOI-style paths
+/:first/*        /?doi=:first/:splat   302
