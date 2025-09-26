@@ -66,14 +66,4 @@ glob.sync('content/**/*', { nodir: true }).forEach(src => {
   }
 });
 
-// compile the tiny CoffeeScript used by the site (so static copy has JS)
-const coffeeIn = 'static/embed/oab_embed.coffee';
-if (fs.existsSync(coffeeIn)) {
-  const compiled = CoffeeScript.compile(fs.readFileSync(coffeeIn, 'utf8'), { bare: true });
-  const jsOut = 'static/embed/oab_embed.js'; // compile into static, then copy step will include it
-  ensureDir(jsOut);
-  fs.writeFileSync(jsOut, compiled);
-  console.log('Compiled:', jsOut);
-}
-
 console.log('Built content →', OUT);
