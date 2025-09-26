@@ -4,10 +4,14 @@ const path = require('path');
 const glob = require('glob');
 const mkdirp = require('mkdirp');
 const rimraf = require('rimraf');
-const CoffeeScript = require('coffeescript');
 
-const settings = JSON.parse(fs.readFileSync('settings.json','utf8'));
 const OUT = 'serve';
+
+// Load settings (fallbacks so the build never crashes)
+let settings = { site_url: '/', api: '' };
+try {
+  settings = JSON.parse(fs.readFileSync('settings.json','utf8'));
+} catch (_) {}
 
 // clean output
 rimraf.sync(OUT);
@@ -15,45 +19,92 @@ mkdirp.sync(OUT);
 
 // helpers
 const ensureDir = f => mkdirp.sync(path.dirname(f));
+
+// Adds base <html>, <body>, etc. 
+const normaliseHtml = (html) => {
+  const hasHtml = /<html[\s\S]*?>/i.test(html);
+  const hasHead = /<head[\s\S]*?>/i.test(html);
+  const hasBody = /<body[\s\S]*?>/i.test(html);
+
+  if (hasHtml && hasBody) return html; // already full doc
+
+  // If page has a <head> but no outer shell/body, wrap it
+  if (hasHead) {
+    const m = html.match(/<head[\s\S]*?<\/head>/i);
+    const head = m ? m[0] : '<head></head>';
+    const before = html.slice(0, m ? m.index : 0).trim();
+    const after  = m ? html.slice(m.index + m[0].length).trim() : html;
+    return [
+      '<!DOCTYPE html>',
+      '<html lang="en">',
+      head,
+      '<body>',
+      before,
+      after,
+      '</body>',
+      '</html>'
+    ].join('\n');
+  }
+
+  // No <head> at all: generate a minimal doc and drop original into <body>
+  let title = 'Shareyourpaper.org';
+  const h1 = html.match(/<h1[^>]*>([^<]+)<\/h1>/i);
+  if (h1 && h1[1]) title = h1[1].trim();
+
+  return [
+    '<!DOCTYPE html>',
+    '<html lang="en">',
+    '<head>',
+    '<meta charset="utf-8">',
+    '<meta name="viewport" content="width=device-width, initial-scale=1">',
+    `<title>${title}</title>`,
+    '</head>',
+    '<body>',
+    html,
+    '</body>',
+    '</html>'
+  ].join('\n');
+};
+
 const injectGlobals = (html) => {
-  const hasBootstrap = /\/static\/bootstrap\.min\.css/i.test(html);
-  const hasJQ       = /jquery-1\.10\.2\.min\.js/i.test(html);
-  const hasNoddy    = /\/static\/noddy\.js/i.test(html) || /window\.noddy/.test(html);
-  const hasInit     = /legacy-head-init\.js/i.test(html);
+  let doc = normaliseHtml(html);
+
+  const hasFonts     = /fonts\.googleapis\.com/i.test(doc);
+  const hasBootstrap = /\/static\/bootstrap\.min\.css/i.test(doc);
+  const hasJQuery    = /jquery-1\.10\.2\.min\.js/i.test(doc);
+  const hasInit      = /legacy-head-init\.js/i.test(doc);
 
   const pieces = [];
 
-  if (!hasBootstrap) {
-    pieces.push('<link rel="stylesheet" href="/static/bootstrap.min.css">');
+  // Inject Google Fonts
+  if (!hasFonts) {
+    pieces.push([
+      '<link rel="preconnect" href="https://fonts.googleapis.com">',
+      '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
+      '<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">',
+      '<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">',
+      '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">'
+    ].join('\n'));
   }
 
+  if (!hasBootstrap) pieces.push('<link rel="stylesheet" href="/static/bootstrap.min.css">');
+
+  // Site/API globals
   pieces.push(
     `<script>var site=${JSON.stringify(settings.site_url)};var api=${JSON.stringify(settings.api)};</script>`
   );
 
-  if (!hasJQ) {
-    pieces.push('<script src="/static/jquery-1.10.2.min.js"></script>');
-  }
+  if (!hasJQuery) pieces.push('<script src="/static/jquery-1.10.2.min.js"></script>');
 
-  pieces.push(
-    fs.existsSync('static/noddy.js')
-      ? '<script src="/static/noddy.js"></script>'
-      : '<script>window.noddy=window.noddy||{};noddy.loggedin=noddy.loggedin||function(){return false};</script>'
-  );
-
-  if (!hasInit) {
-    pieces.push('<script src="/static/legacy-head-init.js"></script>');
-  }
+  if (!hasInit) pieces.push('<script src="/static/legacy-head-init.js"></script>');
 
   const tags = pieces.join('\n');
 
-  // insert as the FIRST thing in <head>
-  if (/<head[^>]*>/i.test(html)) return html.replace(/<head[^>]*>/i, m => `${m}\n${tags}`);
-  if (/<html[^>]*>/i.test(html)) return html.replace(/<html[^>]*>/i, m => `${m}\n<head>${tags}</head>`);
-  return `${tags}\n${html}`;
+  // Insert immediately after <head>
+  return doc.replace(/<head[^>]*>/i, m => `${m}\n${tags}`);
 };
 
-// build content → serve/
+// Build content → serve/
 glob.sync('content/**/*', { nodir: true }).forEach(src => {
   const rel = path.relative('content', src);
   const dest = path.join(OUT, rel);
