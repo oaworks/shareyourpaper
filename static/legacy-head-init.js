@@ -1,7 +1,7 @@
 // ----- Legacy head init -----
 
 // API base used by SYP
-var api = 'https://bg.api.oa.works/find';
+var api = 'https://beta.oa.works';
 
 window.noddy = window.noddy || {};
 if (typeof noddy.loggedin !== 'function') noddy.loggedin = function(){ return false; };
