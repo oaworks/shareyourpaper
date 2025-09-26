@@ -3,5 +3,5 @@
 /favicon.ico     /favicon.ico          200
 /robots.txt      /robots.txt           200
 
-# DOI-style paths
-/:first/*        /?doi=:first/:splat   302
+# Keep DOI-style paths (e.g. /10.1016/j.cplett.2012.10.045) in the URL bar
+:seg/*           /                     200
