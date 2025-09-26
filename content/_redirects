@@ -1,7 +1,0 @@
-# Let assets & infra pass through first
-/content/*        /static/:splat        200
-/favicon.ico     /favicon.ico          200
-/robots.txt      /robots.txt           200
-
-# Keep DOI-style paths (e.g. /10.1016/j.cplett.2012.10.045) in the URL bar
-:seg/*           /                     200
