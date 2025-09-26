@@ -1,2 +1,2 @@
-/10.:prefix/:splat   /?doi=10.:prefix/:splat   301
-/10.:prefix          /?doi=10.:prefix          301
+/10.:prefix/*   /?doi=10.:prefix/:splat   301
+/10.:prefix     /?doi=10.:prefix          301
