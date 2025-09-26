@@ -1,7 +1,11 @@
 # Let assets & infra pass through first
-/content/*        /static/:splat        200
+/content/*       /static/:splat        200
 /favicon.ico     /favicon.ico          200
 /robots.txt      /robots.txt           200
 
-# DOI-style paths
+# Gates Foundation external permanent redirects
+/funders/gates   https://openaccess.gatesfoundation.org/how-to-comply/share-your-paper-via-oa-works/ 301
+/funders/gates/  https://openaccess.gatesfoundation.org/how-to-comply/share-your-paper-via-oa-works/ 301
+
+# DOI-style paths (keep this last)
 /:first/*        /?doi=:first/:splat   302
