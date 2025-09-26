@@ -1479,7 +1479,7 @@ _oaw.shareyourpaper_template = '<div class="_oaw_panel" id="_oaw_inputs" aria-li
   about your paper and find the easiest way to share it.</p> \
   <p><input class="_oaw_form" type="text" id="_oaw_input" placeholder="e.g. 10.1016/j.spmi.2019.106308" aria-label="Enter a search term" style="box-shadow:none;"></input></p> \
   <p><button class="_oaw_find btn-iu _oaw_button _oaw_loading" id="_oaw_find" aria-label="Next" style="min-width:140px;">Next</button></p> \
-  <p><a id="_oaw_nodoi" href="mailto:help@openaccessbutton.org?subject=Help%20depositing%20my%20paper&body=Hi%2C%0D%0A%0D%0AI’d%20like%20to%20deposit%3A%0D%0A%0D%0A%3C%3CPlease%20insert%20a%20full%20citation%3E%3E%0D%0A%0D%0ACan%20you%20please%20assist%20me%3F%0D%0A%0D%0AYours%20sincerely%2C"><strong>My paper doesn’t have a DOI</strong></a></p> \
+  <p><a id="_oaw_nodoi" href="mailto:help@shareyourpaper.org?subject=Help%20depositing%20my%20paper&body=Hi%2C%0D%0A%0D%0AI’d%20like%20to%20deposit%3A%0D%0A%0D%0A%3C%3CPlease%20insert%20a%20full%20citation%3E%3E%0D%0A%0D%0ACan%20you%20please%20assist%20me%3F%0D%0A%0D%0AYours%20sincerely%2C"><strong>My paper doesn’t have a DOI</strong></a></p> \
 </div> \
 <div class="_oaw_panel" id="_oaw_permissions" style="display:none;" aria-live="polite"> \
   <div class="_oaw_section _oaw_oa" id="_oaw_oa"> \
