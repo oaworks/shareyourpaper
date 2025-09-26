@@ -1,2 +1,3 @@
 /10.:prefix/*   /?doi=10.:prefix/:splat   302
 /10.:prefix     /?doi=10.:prefix          302
+/redirect-test   /?ok=1   302
