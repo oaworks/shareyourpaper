@@ -1,11 +1,5 @@
 // ----- Legacy head init -----
 
-window.noddy = window.noddy || {};
-if (typeof noddy.loggedin !== 'function') noddy.loggedin = function(){ return false; };
-noddy.service = 'openaccessbutton';
-noddy.debug = false;
-noddy.api = 'https://api.cottagelabs.com';
-
 jQuery(document).ready(function() {
 
   // Mobile/tablet detection
@@ -37,9 +31,6 @@ jQuery(document).ready(function() {
   if (window.location.href.indexOf('odb=true') !== -1) $('#fromopendatabutton').show();
   if (window.location.href.indexOf('team=true') !== -1) $('#fromteambutton').show();
 
-  // Show/hide items based on session
-  var logged = noddy.loggedin();
-  if (logged) { $('.noddin').show(); $('.nottin').hide(); }
 
   // Footer spacing tweaks
   $('body').css('min-height',$(window).height()+'px');
@@ -52,10 +43,4 @@ jQuery(document).ready(function() {
       $('#footer').css('margin-top',$(window).height()-$('#footer').offset().top+'px');
     }
   }
-
-  // Click pings for analytics
-  var ping = function() {
-    try { $.ajax({ url: noddy.api + '/ping.png?service=openaccessbutton&action=' + $(this).attr('id') }); } catch (err) {}
-  };
-  $('body').on('click','.pinger',ping);
 });

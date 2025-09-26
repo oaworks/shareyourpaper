@@ -320,7 +320,7 @@ _oaw = function(opts) {
       this.api = this.api.replace('/service/oab', '');
       this.api = this.api.replace('dev.api.cottagelabs.com', 'beta.oa.works');
       this.api = this.api.replace('api.cottagelabs.com', 'beta.oa.works');
-      this.api = this.api.replace('api.openaccessbutton.org', 'api.oa.works');
+      this.api = this.api.replace('api.openaccessbutton.org', 'beta.oa.works');
     }
     if (this.api == null) { // default API URL to contact
       this.api = window.location.host.includes('dev.') ? 'https://beta.oa.works' : 'https://api.oa.works';
