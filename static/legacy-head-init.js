@@ -62,3 +62,30 @@ jQuery(document).ready(function() {
   };
   $('body').on('click','.pinger',ping);
 });
+
+// --- Autorun from DOI-style path (/10....) ---
+(function () {
+  // Only act on paths like /10.XXXX/...
+  var m = location.pathname.replace(/\/+$/,'').match(/^\/(10\.[^\/]+\/.+)$/);
+  if (!m) return;
+  var doi = m[1];
+
+  function kickOff() {
+    var input = document.querySelector('#_oaw_input, #oabutton_input');
+    var btn   = document.getElementById('_oaw_find') || document.getElementById('oabutton_find');
+    if (input && btn) {
+      if (!input.value) input.value = doi;
+      btn.click();
+      return true;
+    }
+    return false;
+  }
+
+  // Try now, then poll briefly until the embed has rendered
+  if (!kickOff()) {
+    var tries = 0, t = setInterval(function () {
+      if (kickOff() || ++tries > 100) clearInterval(t);
+    }, 60);
+    window.addEventListener('load', kickOff, { once: true });
+  }
+})();
