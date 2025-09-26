@@ -1,8 +1,5 @@
 // ----- Legacy head init -----
 
-// API base used by SYP
-var api = 'https://beta.oa.works';
-
 window.noddy = window.noddy || {};
 if (typeof noddy.loggedin !== 'function') noddy.loggedin = function(){ return false; };
 noddy.service = 'openaccessbutton';
@@ -65,27 +62,24 @@ jQuery(document).ready(function() {
 
 // --- Autorun from DOI-style path (/10....) ---
 (function () {
-  // Only act on paths like /10.XXXX/...
+  // Only act for /10.XXXX/...
   var m = location.pathname.replace(/\/+$/,'').match(/^\/(10\.[^\/]+\/.+)$/);
   if (!m) return;
-  var doi = m[1];
+  var doi = decodeURIComponent(m[1]);
 
-  function kickOff() {
-    var input = document.querySelector('#_oaw_input, #oabutton_input');
-    var btn   = document.getElementById('_oaw_find') || document.getElementById('oabutton_find');
-    if (input && btn) {
-      if (!input.value) input.value = doi;
-      btn.click();
-      return true;
-    }
+  // When the embed has rendered, prefill & click
+  function kick() {
+    var input = document.getElementById('oabutton_input') || document.getElementById('_oaw_input');
+    var btn   = document.getElementById('oabutton_find')  || document.getElementById('_oaw_find');
+    if (input && btn) { input.value = doi; btn.click(); return true; }
     return false;
   }
 
-  // Try now, then poll briefly until the embed has rendered
-  if (!kickOff()) {
+  // Try quickly until the embed appears
+  if (!kick()) {
     var tries = 0, t = setInterval(function () {
-      if (kickOff() || ++tries > 100) clearInterval(t);
-    }, 60);
-    window.addEventListener('load', kickOff, { once: true });
+      if (kick() || ++tries > 200) clearInterval(t); // ~10s max
+    }, 50);
+    window.addEventListener('load', kick, { once: true });
   }
 })();

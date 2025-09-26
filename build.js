@@ -42,7 +42,7 @@ const injectGlobals = (html) => {
   );
 
   if (!hasInit) {
-    pieces.push('<script src="/static/legacy-head-init.js" defer></script>');
+    pieces.push('<script src="/static/legacy-head-init.js"></script>');
   }
 
   const tags = pieces.join('\n');
