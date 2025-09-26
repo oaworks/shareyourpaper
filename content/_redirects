@@ -1,3 +1,0 @@
-# Serve index for DOI-style paths
-/10.:prefix/*    /   200
-/10.:prefix      /   200

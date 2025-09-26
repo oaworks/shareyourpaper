@@ -59,27 +59,3 @@ jQuery(document).ready(function() {
   };
   $('body').on('click','.pinger',ping);
 });
-
-// --- Autorun from DOI-style path (/10....) ---
-(function () {
-  // Only act for /10.XXXX/...
-  var m = location.pathname.replace(/\/+$/,'').match(/^\/(10\.[^\/]+\/.+)$/);
-  if (!m) return;
-  var doi = decodeURIComponent(m[1]);
-
-  // When the embed has rendered, prefill & click
-  function kick() {
-    var input = document.getElementById('oabutton_input') || document.getElementById('_oaw_input');
-    var btn   = document.getElementById('oabutton_find')  || document.getElementById('_oaw_find');
-    if (input && btn) { input.value = doi; btn.click(); return true; }
-    return false;
-  }
-
-  // Try quickly until the embed appears
-  if (!kick()) {
-    var tries = 0, t = setInterval(function () {
-      if (kick() || ++tries > 200) clearInterval(t); // ~10s max
-    }, 50);
-    window.addEventListener('load', kick, { once: true });
-  }
-})();
