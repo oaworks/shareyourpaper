@@ -4,6 +4,7 @@ const path = require('path');
 const glob = require('glob');
 const mkdirp = require('mkdirp');
 const rimraf = require('rimraf');
+const { execSync } = require('child_process');
 
 const OUT = 'serve';
 
@@ -116,5 +117,18 @@ glob.sync('content/**/*', { nodir: true }).forEach(src => {
     fs.copyFileSync(src, dest);
   }
 });
+
+// Minify content/embed.js → serve/embed.min.js
+try {
+  const inFile = path.join('content', 'embed.js');
+  const outFile = path.join(OUT, 'embed.min.js');
+  if (fs.existsSync(inFile)) {
+    mkdirp.sync(path.dirname(outFile));
+    execSync(`npx terser "${inFile}" -o "${outFile}" -c -m`, { stdio: 'inherit' });
+    console.log('Minified embed.js →', outFile);
+  }
+} catch (e) {
+  console.error('Minify failed:', e.message);
+}
 
 console.log('Built content →', OUT);
