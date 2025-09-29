@@ -7,9 +7,11 @@
 /funders/gates   https://openaccess.gatesfoundation.org/how-to-comply/share-your-paper-via-oa-works/ 301
 /funders/gates/  https://openaccess.gatesfoundation.org/how-to-comply/share-your-paper-via-oa-works/ 301
 
-# Send /shareyourpaper.org to homepage
+# Send deleted secondary pages to homepage
 /shareyourpaper.org    /   301
 /shareyourpaper.org/   /   301
+/journals/icjr   /   301
+/journals/icjr/   /   301
 
 # DOI-style paths (keep this last)
 /:first/*        /?doi=:first/:splat   302
