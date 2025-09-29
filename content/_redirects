@@ -12,6 +12,10 @@
 /shareyourpaper.org/   /   301
 /journals/icjr   /   301
 /journals/icjr/   /   301
+/demo   /   301
+/demo/   /   301
+/setup   /   301
+/setup/   /   301
 
 # DOI-style paths (keep this last)
 /:first/*        /?doi=:first/:splat   302
