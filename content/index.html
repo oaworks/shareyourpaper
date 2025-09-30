@@ -1,6 +1,5 @@
 <head>
   <title>Shareyourpaper.org</title>
-  <script src="embed.min.js"></script>
   <link rel="stylesheet" href="/static/oabutton_rebrand.css">
   <meta name="description" content="We can help you make your paper Open Access, for free, wherever you publish. It’s legal and takes just minutes. Join millions of researchers sharing their papers freely with colleagues and the public." />
   <meta property="og:description" content="We can help you make your paper Open Access, for free, wherever you publish. It’s legal and takes just minutes. Join millions of researchers sharing their papers freely with colleagues and the public." />
@@ -166,8 +165,6 @@
     </div>
   </div>
 
-
-
   <!-- footer -->
   <div class="navy-bg flex-foot">
     <div class="center-col footer">
@@ -188,30 +185,40 @@
 
   </div>
 
-  <!-- 996 is joe.mcarthur@oa.works live id. 4WD is the same email on dev. -->
 <script>
-  shareyourpaper({ element: 'shareyourpaper', api: 'https://beta.oa.works', site: location.origin });
-</script>
-
-<script>
-
 var learnmore = function() {
   $('#_oaw_nodoi').replaceWith('Try an example <a href="#" id="runexample"><u>10.1016/j.cplett.2012.10.045</u></a> or <a href="#" class="learnmore"><u>learn more</u></a>.');
   if ($('#about').is(':visible')) {
     $('#shareyourpaper').toggle();
     $('#about').toggle();
   }
-}
+};
 
-_oab = shareyourpaper({
-  uid:(api.indexOf('dev.') !== -1 ? '4WDY6njiatg3FZMJm' : '996wFY3oTTkNonqnt'),
-  api:api,
+const api  = 'https://beta.oa.works';
+const site = location.origin;
+
+var _oab = shareyourpaper({
+  element: 'shareyourpaper',
+  api: api,
+  site: site,
+  uid: (api.indexOf('dev.') !== -1 ? '4WDY6njiatg3FZMJm' : '996wFY3oTTkNonqnt'),
   loaded: learnmore,
-  config:{"repo_name":"Zenodo","oa_deposit_off":true,"dark_deposit_off":true,"live":1585895131684,"not_library":true,"owner":"joe.mcarthur@oa.works"}
+  config: {
+    "repo_name":"Zenodo",
+    "oa_deposit_off":true,
+    "dark_deposit_off":true,
+    "live":1585895131684,
+    "not_library":true,
+    "owner":"joe.mcarthur@oa.works"
+  }
 });
 
 jQuery(document).ready(function() {
-  $('body').on('click','#runexample',function(e) { e.preventDefault(); $('#_oaw_input').val('10.1016/j.cplett.2012.10.045'); _oab.find(); });
+  $('body').on('click','#runexample',function(e) {
+    e.preventDefault();
+    $('#_oaw_input').val('10.1016/j.cplett.2012.10.045');
+    _oab.find();
+  });
   $('body').on('click','.learnmore',function(e) {
     e.preventDefault();
     $('#shareyourpaper').toggle();
@@ -225,7 +232,8 @@ jQuery(document).ready(function() {
     }
   });
 });
-
 </script>
+
 <script async defer src="https://sa.shareyourpaper.org/latest.js"></script>
 <noscript><img src="https://sa.shareyourpaper.org/noscript.gif" alt=""/></noscript>
+<script src="embed.min.js" defer></script>
