@@ -73,6 +73,7 @@ const injectGlobals = (html) => {
   const hasFonts     = /fonts\.googleapis\.com/i.test(doc);
   const hasBootstrap = /\/static\/bootstrap\.min\.css/i.test(doc);
   const hasJQuery    = /jquery-1\.10\.2\.min\.js/i.test(doc);
+  const hasInit      = /legacy-head-init\.js/i.test(doc);
 
   const pieces = [];
 
@@ -95,6 +96,8 @@ const injectGlobals = (html) => {
   );
 
   if (!hasJQuery) pieces.push('<script src="/static/jquery-1.10.2.min.js"></script>');
+
+  if (!hasInit) pieces.push('<script src="/static/legacy-head-init.js"></script>');
 
   const tags = pieces.join('\n');
 
