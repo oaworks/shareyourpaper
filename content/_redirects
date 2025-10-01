@@ -8,9 +8,8 @@
 /funders/gates/   https://openaccess.gatesfoundation.org/how-to-comply/share-your-paper-via-oa-works/ 301
 /funders/gates/*  https://openaccess.gatesfoundation.org/how-to-comply/share-your-paper-via-oa-works/?doi=:splat 301
 
-# TWCF DOI alias: keep on site (preserve query string)
-# e.g. /funder/twcf/10.xxxx -> /?doi=10.xxxx
-/funder/twcf/*    /?doi=:splat 302
+# Send /funder/twcf/{doi} to /funder/twcf/?doi={doi}
+/funder/twcf/*   /funder/twcf/?doi=:splat   302
 
 # Send deleted secondary pages to homepage
 /shareyourpaper.org   / 301
