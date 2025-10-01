@@ -4,7 +4,8 @@
 /robots.txt      /robots.txt           200
 
 # Send /funder/twcf/{doi} to /funder/twcf/?doi={doi}
-/funder/twcf/*   /funder/twcf/?doi=:splat   302
+ /funder/twcf/:prefix/*   /funder/twcf/?doi=:prefix/:splat   302
+ /funder/twcf/:prefix     /funder/twcf/?doi=:prefix          302
 
 # Gates Foundation external permanent redirects
 /funders/gates    https://openaccess.gatesfoundation.org/how-to-comply/share-your-paper-via-oa-works/ 301
