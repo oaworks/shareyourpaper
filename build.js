@@ -119,16 +119,19 @@ glob.sync('content/**/*', { nodir: true }).forEach(src => {
 });
 
 // Minify content/embed.js → serve/embed.min.js
-try {
-  const inFile = path.join('content', 'embed.js');
-  const outFile = path.join(OUT, 'embed.min.js');
-  if (fs.existsSync(inFile)) {
-    mkdirp.sync(path.dirname(outFile));
-    execSync(`npx terser "${inFile}" -o "${outFile}" -c -m`, { stdio: 'inherit' });
-    console.log('Minified embed.js →', outFile);
-  }
-} catch (e) {
-  console.error('Minify failed:', e.message);
-}
+// Not implemented yet
+// See https://github.com/oaworks/discussion/issues/3544#issuecomment-3355511097
+// And see https://github.com/oaworks/discussion/issues/3550
+// try {
+//   const inFile = path.join('content', 'embed.js');
+//   const outFile = path.join(OUT, 'embed.min.js');
+//   if (fs.existsSync(inFile)) {
+//     mkdirp.sync(path.dirname(outFile));
+//     execSync(`npx terser "${inFile}" -o "${outFile}" -c -m`, { stdio: 'inherit' });
+//     console.log('Minified embed.js →', outFile);
+//   }
+// } catch (e) {
+//   console.error('Minify failed:', e.message);
+// }
 
 console.log('Built content →', OUT);
