@@ -4,18 +4,23 @@
 /robots.txt      /robots.txt           200
 
 # Gates Foundation external permanent redirects
-/funders/gates   https://openaccess.gatesfoundation.org/how-to-comply/share-your-paper-via-oa-works/ 301
-/funders/gates/  https://openaccess.gatesfoundation.org/how-to-comply/share-your-paper-via-oa-works/ 301
+/funders/gates    https://openaccess.gatesfoundation.org/how-to-comply/share-your-paper-via-oa-works/ 301
+/funders/gates/   https://openaccess.gatesfoundation.org/how-to-comply/share-your-paper-via-oa-works/ 301
+/funders/gates/*  https://openaccess.gatesfoundation.org/how-to-comply/share-your-paper-via-oa-works/?doi=:splat 301
+
+# TWCF DOI alias: keep on site (preserve query string)
+# e.g. /funder/twcf/10.xxxx -> /?doi=10.xxxx
+/funder/twcf/*    /?doi=:splat 302
 
 # Send deleted secondary pages to homepage
-/shareyourpaper.org    /   301
-/shareyourpaper.org/   /   301
-/journals/icjr   /   301
-/journals/icjr/   /   301
-/demo   /libraries   301
-/demo/   /libraries   301
-/setup   /libraries   301
-/setup/   /libraries   301
+/shareyourpaper.org   / 301
+/shareyourpaper.org/  / 301
+/journals/icjr        / 301
+/journals/icjr/       / 301
+/demo                 /libraries 301
+/demo/                /libraries 301
+/setup                /libraries 301
+/setup/               /libraries 301
 
 # DOI-style paths (keep this last)
 /:first/*        /?doi=:first/:splat   302
