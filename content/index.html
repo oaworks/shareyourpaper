@@ -188,7 +188,6 @@
 
   </div>
 
-  <!-- 996 is joe.mcarthur@oa.works live id. 4WD is the same email on dev. -->
 <script>
 
 var learnmore = function() {
@@ -200,7 +199,8 @@ var learnmore = function() {
 }
 
 _oab = shareyourpaper({
-  uid:(api.indexOf('dev.') !== -1 ? '4WDY6njiatg3FZMJm' : '996wFY3oTTkNonqnt'),
+  // 996 is joe.mcarthur@oa.works live id. 4WD is the same email on dev.
+  uid:(api.indexOf('beta.') !== -1 ? '4WDY6njiatg3FZMJm' : '996wFY3oTTkNonqnt'),
   api:api,
   loaded: learnmore,
   config:{"repo_name":"Zenodo","oa_deposit_off":true,"dark_deposit_off":true,"live":1585895131684,"not_library":true,"owner":"joe.mcarthur@oa.works"}
