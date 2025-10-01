@@ -3,13 +3,13 @@
 /favicon.ico     /favicon.ico          200
 /robots.txt      /robots.txt           200
 
+# Send /funder/twcf/{doi} to /funder/twcf/?doi={doi}
+/funder/twcf/*   /funder/twcf/?doi=:splat   302
+
 # Gates Foundation external permanent redirects
 /funders/gates    https://openaccess.gatesfoundation.org/how-to-comply/share-your-paper-via-oa-works/ 301
 /funders/gates/   https://openaccess.gatesfoundation.org/how-to-comply/share-your-paper-via-oa-works/ 301
 /funders/gates/*  https://openaccess.gatesfoundation.org/how-to-comply/share-your-paper-via-oa-works/?doi=:splat 301
-
-# Send /funder/twcf/{doi} to /funder/twcf/?doi={doi}
-/funder/twcf/*   /funder/twcf/?doi=:splat   302
 
 # Send deleted secondary pages to homepage
 /shareyourpaper.org   / 301
