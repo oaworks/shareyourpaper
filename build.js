@@ -4,12 +4,21 @@ const path = require('path');
 const glob = require('glob');
 const mkdirp = require('mkdirp');
 const rimraf = require('rimraf');
-const { execSync } = require('child_process');
 
 const OUT = 'serve';
 
-// Load settings (fallbacks so the build never crashes)
-let settings = { site_url: '/', api: '' };
+// Load build-time config from Netlify and set fallbacks
+const SITE_URL =
+  process.env.SITE_URL ||
+  process.env.URL ||        // Netlify production URL
+  process.env.DEPLOY_URL || // Netlify previews/branches
+  '/';
+
+const API_ENDPOINT =
+  process.env.API_ENDPOINT ||
+  'https://api.oa.works';
+
+// Fallbacks so the build never crashes
 try {
   settings = JSON.parse(fs.readFileSync('settings.json','utf8'));
 } catch (_) {}
@@ -92,7 +101,7 @@ const injectGlobals = (html) => {
 
   // Site/API globals
   pieces.push(
-    `<script>var site=${JSON.stringify(settings.site_url)};var api=${JSON.stringify(settings.api)};</script>`
+    `<script>var site=${JSON.stringify(SITE_URL)};var api=${JSON.stringify(API_ENDPOINT)};</script>`
   );
 
   if (!hasJQuery) pieces.push('<script src="/static/jquery-1.10.2.min.js"></script>');
