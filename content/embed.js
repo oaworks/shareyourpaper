@@ -1393,7 +1393,7 @@ _oaw.prototype.find = function(e) {
           return this.permissions(data);
         }
       } else {
-        return _OA.jx(this.api + '/find', this.data, (data) => {
+        return _OA.jx(this.api + '/find_internal', this.data, (data) => {
           if (this.plugin === 'instantill') {
             return this.findings(data);
           } else {
