@@ -8,8 +8,7 @@
 /funder/twcf/     /funder/twcf.html    200
 
 # Send /funder/twcf/{doi} to /funder/twcf/?doi={doi}
-/funder/twcf/10.:prefix/*  /funder/twcf/?doi=10.:prefix/:splat   302
-/funder/twcf/10.:prefix    /funder/twcf/?doi=10.:prefix          302
+/funder/twcf/* /funder/twcf/?doi=:splat 302!
 
 # Gates Foundation external permanent redirects
 /funders/gates     https://openaccess.gatesfoundation.org/how-to-comply/share-your-paper-via-oa-works/                     301
