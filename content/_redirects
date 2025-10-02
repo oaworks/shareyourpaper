@@ -4,17 +4,22 @@
 /robots.txt      /robots.txt           200
 
 # This is a 200 rewrite, not a redirect — URL stays /funder/twcf
-/funder/twcf      /funders/twcf.html   200
-/funder/twcf/     /funders/twcf.html   200
+/funder/twcf      /funder/twcf.html    200
+/funder/twcf/     /funder/twcf.html    200
 
 # Send /funder/twcf/{doi} to /funder/twcf/?doi={doi}
-/funder/twcf/*?email=:email   /funder/twcf/?doi=:splat&email=:email   302!
-/funder/twcf/*                /funder/twcf/?doi=:splat                302!
+/funder/twcf/10.:prefix/*  /funder/twcf/?doi=10.:prefix/:splat   302
+/funder/twcf/10.:prefix    /funder/twcf/?doi=10.:prefix          302
 
 # Gates Foundation external permanent redirects
-/funders/gates    https://openaccess.gatesfoundation.org/how-to-comply/share-your-paper-via-oa-works/ 301
-/funders/gates/   https://openaccess.gatesfoundation.org/how-to-comply/share-your-paper-via-oa-works/ 301
-/funders/gates/*  https://openaccess.gatesfoundation.org/how-to-comply/share-your-paper-via-oa-works/?doi=:splat 301
+/funders/gates     https://openaccess.gatesfoundation.org/how-to-comply/share-your-paper-via-oa-works/                     301
+/funders/gates/    https://openaccess.gatesfoundation.org/how-to-comply/share-your-paper-via-oa-works/                     301
+/funders/gates/*   https://openaccess.gatesfoundation.org/how-to-comply/share-your-paper-via-oa-works/?doi=:splat          301
+
+# Generic plural to singular (catch any old /funders/* links)
+/funders/twcf      /funder/twcf        301
+/funders/twcf/     /funder/twcf        301
+/funders/*         /funder/:splat      301
 
 # Send deleted secondary pages to homepage
 /shareyourpaper.org   / 301
