@@ -975,7 +975,7 @@ _oaw.prototype.permissions = function(data) {
         this.f = {};
         _OA.show('#_oaw_error', '<p>Double check your DOI, that doesn’t look right to us.</p>');
         return _OA.gebi('_oaw_input').focus();
-      } else if ((this.f.metadata.crossref_type !== undefined && this.f.metadata.crossref_type !== 'journal-article' && this.f.metadata.crossref_type !== 'proceedings-article') || (this.f.metadata.type !== undefined && this.f.metadata.type !== 'journal-article' && this.f.metadata.type !== 'proceedings-article')) {
+      } else if ((this.f.metadata.crossref_type !== undefined && this.f.metadata.crossref_type !== 'journal-article' && this.f.metadata.crossref_type !== 'proceedings-article') || (this.f.metadata.type !== undefined && this.f.metadata.type !== 'journal-article' && this.f.metadata.type !== 'article' && this.f.metadata.type !== 'proceedings-article')) {
         _OA.gebi('_oaw_input').focus();
         nj = '<p>Sorry, right now this only works with academic journal articles.';
         if (this.cml() || (this.config.old_way && this.config.old_way.includes('@'))) {
@@ -1116,7 +1116,7 @@ _oaw.prototype.findings = function(data) { // only used by instantill
     } else {
       this.loading(false);
       if (ct = (this.f.metadata.crossref_type ? this.f.metadata.crossref_type : (this.f.metadata.type ? this.f.metadata.type : undefined))) {
-        if (ct !== 'journal-article' && ct !== 'proceedings-article' && ct !== 'posted-content') {
+        if (ct !== 'journal-article' && ct !== 'article' && ct !== 'proceedings-article' && ct !== 'posted-content') {
           if (ct === 'book-section' || ct === 'book-part' || ct === 'book-chapter') {
             err = '<p>Please make your request through our ' + (this.config.book ? '<a id="_oaw_book_form" href="' + this.config.book + '">book form</a>' : 'book form');
           } else {
