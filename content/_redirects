@@ -1,7 +1,9 @@
 # Let assets & infra pass through first
 /content/*       /static/:splat        200
 /favicon.ico     /favicon.ico          200
+/favicon.ico/ /favicon.ico/ 200
 /robots.txt      /robots.txt           200
+/robots.txt/ /robots.txt/ 200
 
 # This is a 200 rewrite, not a redirect — URL stays /funder/twcf
 /funder/twcf      /funder/twcf.html    200
