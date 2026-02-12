@@ -1,16 +1,16 @@
-# Let assets & infra pass through first
+# Let assets & infra pass through first (before catch-all DOI redirect)
+/static/*        /static/:splat        200
 /content/*       /static/:splat        200
-/favicon.ico     /favicon.ico          200
-/favicon.ico/ /favicon.ico/ 200
+/embed.js        /embed.js             200
+/favicon.ico     /static/favicon.ico   200
 /robots.txt      /robots.txt           200
-/robots.txt/ /robots.txt/ 200
 
-# This is a 200 rewrite, not a redirect — URL stays /funder/twcf
+# This is a 200 rewrite, not a redirect. URL stays /funder/twcf
 /funder/twcf      /funder/twcf.html    200
 /funder/twcf/     /funder/twcf.html    200
 
 # Send /funder/twcf/{doi} to /funder/twcf/?doi={doi}
-/funder/twcf/* /funder/twcf/?doi=:splat 302!
+/funder/twcf/* /funder/twcf/?doi=:splat 302
 
 # Gates Foundation external permanent redirects
 /funders/gates     https://openaccess.gatesfoundation.org/how-to-comply/share-your-paper-via-oa-works/                     301
