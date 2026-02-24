@@ -6,8 +6,8 @@
 /robots.txt      /robots.txt           200
 
 # This is a 200 rewrite, not a redirect. URL stays /funder/twcf
-/funder/twcf      /funder/twcf.html    200
-/funder/twcf/     /funder/twcf.html    200
+/funder/twcf      /funder/twcf/index.html    200
+/funder/twcf/     /funder/twcf/index.html    200
 
 # Send /funder/twcf/{doi} to /funder/twcf/?doi={doi}
 /funder/twcf/* /funder/twcf/?doi=:splat 302
@@ -18,8 +18,8 @@
 /funders/gates/*   https://openaccess.gatesfoundation.org/how-to-comply/share-your-paper-via-oa-works/?doi=:splat          301
 
 # Keep TWCF plural URL working without redirect hops (preserves ?doi)
-/funders/twcf      /funder/twcf.html 200
-/funders/twcf/     /funder/twcf.html 200
+/funders/twcf      /funder/twcf/index.html 200
+/funders/twcf/     /funder/twcf/index.html 200
 /funders/twcf/*    /funder/twcf/?doi=:splat 302
 
 # Generic plural to singular (catch any old /funders/* links)
