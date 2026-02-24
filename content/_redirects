@@ -6,8 +6,8 @@
 /robots.txt      /robots.txt           200
 
 # This is a 200 rewrite, not a redirect. URL stays /funder/twcf
-/funder/twcf      /funder/twcf.html    200
-/funder/twcf/     /funder/twcf.html    200
+/funder/twcf      /funder/twcf/index.html    200
+/funder/twcf/     /funder/twcf/index.html    200
 
 # Send /funder/twcf/{doi} to /funder/twcf/?doi={doi}
 /funder/twcf/* /funder/twcf/?doi=:splat 302
