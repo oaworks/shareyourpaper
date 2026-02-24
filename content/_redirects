@@ -17,9 +17,12 @@
 /funders/gates/    https://openaccess.gatesfoundation.org/how-to-comply/share-your-paper-via-oa-works/                     301
 /funders/gates/*   https://openaccess.gatesfoundation.org/how-to-comply/share-your-paper-via-oa-works/?doi=:splat          301
 
+# Keep TWCF plural URL working without redirect hops (preserves ?doi)
+/funders/twcf      /funder/twcf.html 200
+/funders/twcf/     /funder/twcf.html 200
+/funders/twcf/*    /funder/twcf/?doi=:splat 302
+
 # Generic plural to singular (catch any old /funders/* links)
-/funders/twcf      /funder/twcf        301
-/funders/twcf/     /funder/twcf        301
 /funders/*         /funder/:splat      301
 
 # Send deleted secondary pages to homepage

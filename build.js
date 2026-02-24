@@ -122,6 +122,15 @@ glob.sync('content/**/*', { nodir: true }).forEach(src => {
   if (src.endsWith('.html')) {
     const out = injectGlobals(fs.readFileSync(src, 'utf8'));
     fs.writeFileSync(dest, out);
+
+    // Emit directory index equivalents so /foo/bar resolves on hosts
+    // that do not automatically map /foo/bar -> /foo/bar.html.
+    const parsed = path.parse(rel);
+    if (parsed.base !== "index.html") {
+      const prettyDest = path.join(OUT, parsed.dir, parsed.name, "index.html");
+      ensureDir(prettyDest);
+      fs.writeFileSync(prettyDest, out);
+    }
   } else {
     fs.copyFileSync(src, dest);
   }
