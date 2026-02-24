@@ -37,5 +37,8 @@
 /setup                /libraries 301
 /setup/               /libraries 301
 
-# DOI-style paths (keep this last)
-/:first/*        /?doi=:first/:splat   302
+# Keep funder routes out of the generic DOI catch-all.
+/funder/*       /funder/:splat   200
+
+# DOI-style catch-all disabled here because it captures funder routes on
+# Cloudflare Pages (e.g. /funder/twcf/) and redirects them to homepage.
