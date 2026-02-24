@@ -9,8 +9,8 @@
 /funder/twcf      /funder/twcf/index.html    200
 /funder/twcf/     /funder/twcf/index.html    200
 
-# Send /funder/twcf/{doi} to /funder/twcf/?doi={doi}
-/funder/twcf/* /funder/twcf/?doi=:splat 302
+# Note: avoid a singular wildcard here, because rewritten
+# /funder/twcf/index.html can match /funder/twcf/* on some hosts.
 
 # Gates Foundation external permanent redirects
 /funders/gates     https://openaccess.gatesfoundation.org/how-to-comply/share-your-paper-via-oa-works/                     301
