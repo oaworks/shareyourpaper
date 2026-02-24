@@ -6,6 +6,8 @@
 /robots.txt      /robots.txt           200
 
 # This is a 200 rewrite, not a redirect. URL stays /funder/twcf
+/funder/twcf/index.html /funder/twcf/index.html 200
+/funder/twcf.html /funder/twcf/index.html 200
 /funder/twcf      /funder/twcf/index.html    200
 /funder/twcf/     /funder/twcf/index.html    200
 
