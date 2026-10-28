@@ -1730,7 +1730,7 @@ _oaw.prototype.configure = function(key, val, build, preview) {
         // shareyourpaper exclusive configs
         if (this.plugin === 'shareyourpaper') {
           if ((this.cml() != null || (this.config.old_way && this.config.old_way.includes('@'))) && (el = _OA.gebi('_oaw_nodoi'))) {
-            el.setAttribute('href', el.getAttribute('href').replace('help@openaccessbutton.org', (this.config.old_way && this.config.old_way.includes('@') ? this.config.old_way: this.cml())));
+            el.setAttribute('href', el.getAttribute('href').replace('help@shareyourpaper.org', (this.config.old_way && this.config.old_way.includes('@') ? this.config.old_way: this.cml())));
           }
           if (this.config.not_library) {
             _OA.html('._oaw_library', 'We have');
